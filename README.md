@@ -157,10 +157,6 @@ _____________________
 - Contact with Quandl and others to sell
 ___________________
 
-## License
-- All rights belongs to the contributors
-______________
-
 ## Data Source references:
 - Financial Satements Datasets:
 https://www.sec.gov/dera/data/financial-statement-data-sets.html
