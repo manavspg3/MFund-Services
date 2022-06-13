@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<style>
+
+body {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+}
+
+.highlights .card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.025);
+    transition: 0.3s;
+    border-radius: 4px;
+    height: 100%;
+    padding: 3rem;
+    width : 33.3%;    
+}
+
+.highlights .card1 {
+    /* Add shadows to create the "card" effect */
+    height: 100%;
+    padding: 3rem;
+    width : 33.3%;    
+}
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.025);
+}
+/* Add some padding inside the card container */
+.container1 {
+    padding: 2px 16px;
+}
+
+.highlights {
+    width: 100%;
+    margin: 2.5rem 0;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -moz-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -moz-align-items: -moz-stretch;
+    -webkit-align-items: -webkit-stretch;
+    -ms-align-items: -ms-stretch;
+    align-items: stretch;
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+.imageClass{
+    display:inline;
+    list-style-type:none;
+}
+
+#header {
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -ms-justify-content: space-between;
+    justify-content: space-between;
+    background: #111111;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: default;
+    height: 3.25rem;
+    left: 0;
+    line-height: 3.25rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10001;
+}
+
+header.special {
+  text-align: center;
+  margin-bottom: 4rem; }
+  header.special p {
+    max-width: 75%;
+    margin-left: auto;
+    margin-right: auto; }
+
+.inner {
+    margin: 0 auto;
+}
+
+.def {
+  width:40%;
+}
+</style>
+<script>
+  function checkSelected(element) {
+    var count = 0;
+    var group = document.getElementsByName("strategy");
+    for (var i = 0; i < group.length; i++) {
+      if (group[i].checked) {
+        count = count + 1
+      }
+    }
+    console.log(count);
+    if (count > 2)
+    {
+      alert('Select maximum 2 options!');
+      element.checked = false;
+    }
+  }
+  function checkSubmit(element) {
+    var count = 0;
+    var group = document.getElementsByName("strategy");
+    for (var i = 0; i < group.length; i++) {
+      if (group[i].checked) {
+        count = count + 1
+      }
+    }
+    if (count < 1)
+    {
+      alert('Select a strategy!');
+      return false;
+    } else {
+      return true;
+    }
+  }
+</script>
+
+{% extends "bootstrap/base.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+  utils module here to automatically render Flask's flashed messages in a
+  bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Stock Portfolio Suggestion Engine</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js" integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ=" crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='stock.js') }}"></script> -->
+
+    <!-- <script type="text/javascript">
+     $(document).ready(function () {
+        $("input[name='strategy']").change(function () {
+            var maxAllowed = 2;
+            var cnt = $("input[name='strategy']:checked").length;
+            if (cnt > maxAllowed) {
+                $(this).prop("checked", "");
+                alert('You can select maximum ' + maxAllowed + ' strategies!!');
+            }
+        });
+    </script> -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/Homepage.css') }}">
+    <!-- <script src="jquery-3.3.1.min.js"></script> -->
+    
+    </head>
+
+<body class="is-preload">
+{% block content %}
+<!-- Header -->
+  <header class="header" align="center" style = "font-family: Raleway, Arial, Helvetica, sans-serif">
+      <h1 class="logo">STOCK PORTFOLIO</h1>
+  </header>
+<div>
+ 
+  <div class = "inner" style = "font-family: Raleway, Arial, Helvetica, sans-serif; margin-top: 2%" >
+      <form id="contact"  onsubmit="return checkSubmit(this)" method="post" action="/stockportfolio" class="container">
+      <fieldset>
+        <div class="form-group" style = "font-family: Raleway, Arial, Helvetica, sans-serif">
+          <div>
+          <h3>ENTER YOUR INVESTMENT VALUE</h3>
+        </div>
+          <input type="number" class="form-control" id="investment_value" name="investment_value" min="5000" required/>
+        </div>
+        <div style = "margin-top: 5%">
+            <h3 style = "margin-right: 5%">SELECT INVESTING STRATEGIES (max 2) :</h3>
+        </div>
+        <div class="highlights">
+        
+        <div class="card">
+          <div class="container1" style="margin-top: 5%; margin-bottom: 5%">
+            <div style = "margin-bottom: 5%">
+            <img src="../static/images/ethical.jpg" alt="Avatar" style="width:300px; height:300px;"></div>
+            <div><input class= "single-checkbox" type="checkbox" onclick="checkSelected(this)" name="strategy" value="Ethical Investing"/>
+            <h4 style="margin-top: -22px;
+            margin-left: 20px; font-family: Raleway, Arial, Helvetica, sans-serif;">ETHICAL INVESTING</h4></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="container1" style="margin-top: 5%; margin-bottom: 5%">
+              <div style = "margin-bottom: 5%">
+              <img src="../static/images/growthInvesting.jpg" alt="Avatar" style="width:300px; height:300px;"></div>
+              <div><input class= "single-checkbox" type="checkbox" onclick="checkSelected(this)" name="strategy" value="Growth Investing"/><h4 style="margin-top: -22px;
+              margin-left: 20px; font-family: Raleway, Arial, Helvetica, sans-serif;">GROWTH INVESTING</h4></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="container1" style="margin-top: 5%; margin-bottom: 5%">
+              <div style = "margin-bottom: 5%">
+              <img src="../static/images/index.jpg" alt="Avatar" style="width:300px; height:300px;"></div>
+              <div>
+              <input class= "single-checkbox"  type="checkbox" onclick="checkSelected(this)" name="strategy" value="Index Investing"/><h4 style="margin-top: -22px;
+              margin-left: 20px; font-family: Raleway, Arial, Helvetica, sans-serif;">INDEX INVESTING</h4></div>
+            </div>
+        </div>
+
+        <div class="card">
+        <div class="container1" style="margin-top: 5%; margin-bottom: 5%">
+            <div style = "margin-bottom: 5%">
+            <img src="../static/images/quality.jpg" alt="Avatar" style="width:300px; height:300px;"></div>
+            <div>
+            <input class= "single-checkbox"  type="checkbox" onclick="checkSelected(this)" name="strategy" value="Quality Investing"/><h4 style="margin-top: -22px;
+            margin-left: 20px; font-family: Raleway, Arial, Helvetica, sans-serif;">QUALITY INVESTING</h4></div>
+          </div>
+          </div>
+        
+        <div class="card">
+           <div class="container1" style="margin-top: 5%; margin-bottom: 5%">
+              <div style = "margin-bottom: 5%">
+              <img src="../static/images/value.jpg" alt="Avatar" style="width:300px; height:300px;"></div>
+              <div><input class= "single-checkbox" type="checkbox" onclick="checkSelected(this)" name="strategy" value="Value Investing"/><h4 style="margin-top: -22px;
+              margin-left: 20px; font-family: Raleway, Arial, Helvetica, sans-serif;">VALUE INVESTING</h4></div>
+           </div>
+        </div>
+        <div class="card1">
+           <div class="container1" style="margin-top: 5%; margin-bottom: 5%">
+              <div style = "margin-left: 30%; margin-top: 30%;">
+                  <input style="width : 150px; height: 50px; font-family: Raleway, Arial, Helvetica, sans-serif; font-size: 20px;" class = "btn btn-primary" type="submit" name="submit" id="submit" value="SUBMIT">
+              </div>
+            </div>
+          </div>
+      </div>
+      </fieldset>
+    </form>
+  </div>
+  {%- endblock %}
+</body>
+</html>
+
+
