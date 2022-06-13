@@ -1,4 +1,4 @@
-# Stock-Portfolio-Suggestion-Engine
+# Portfolio-Suggestion-Engine
 
 Stock Portfolio Suggestion Engine that uses techniques like growth investing, ethical investing, value investing, index investing and quality investing to suggest the best investment options.
 
