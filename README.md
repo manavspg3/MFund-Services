@@ -1,4 +1,8 @@
 # MFund-Services
+
+## Basic Motivation
+I felt moved by the concept of hedge funds as a service when I saw this concept on the internet and Github. I thought I could furher improvise on this concept and built some additional features to ensure a more refined approach to investing and portfolio recommendation. So, I re-made all the evaluations, and I came up with an advanced design for good use. Although, it is a prototype , but it has a good potential for growth.  
+
 Hedge Fund As A Service Platform
 - Put trust in the machine
 - Machine Learns the Finance
